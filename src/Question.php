@@ -27,6 +27,11 @@ class Question
         return $this->correct;
     }
 
+    public function answered()
+    {
+        return isset($this->answer);
+    }
+
     public function isCorrect()
     {
         return $this->correct;

@@ -95,4 +95,20 @@ class QuizTest extends TestCase
 
         $this->assertFalse($quiz->nextQuestion());
     }
+
+    /** @test */
+    public function it_knows_if_it_is_complete()
+    {
+        $quiz = new Quiz();
+
+        $quiz->addQuestion(
+            new Question('What is 2 + 2?', 4)
+        );
+
+        $this->assertFalse($quiz->isComplete());
+
+        $quiz->nextQuestion()->answer(4);
+
+        $this->assertTrue($quiz->isComplete());
+    }
 }

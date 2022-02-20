@@ -2,54 +2,48 @@
 
 namespace App;
 
+use Exception;
+
 class Quiz
 {
-    private array $qustions;
+    private Questions $questions;
 
-    private $currentQuestion = 1;
+    public function __construct()
+    {
+        $this->questions = new Questions();
+    }
 
     public function addQuestion(Question $question)
     {
-        $this->qustions[] = $question;
+        $this->questions->add($question);
+    }
+
+    public function begin()
+    {
+        return $this->nextQuestion();
     }
 
     public function nextQuestion()
     {
-        if (! isset($this->qustions[$this->currentQuestion - 1])) {
-            return false;
-        }
-
-        $qustions =  $this->qustions[$this->currentQuestion - 1];
-        $this->currentQuestion++;
-
-        return $qustions;
+        return $this->questions->next();
     }
 
     public function questions()
     {
-        return $this->qustions;
+        return $this->questions;
     }
 
     public function isComplete()
     {
-        return count(array_filter($this->qustions, function ($qustions) {
-            return $qustions->answered();
-        })) === count($this->qustions);
+        return count($this->questions->answered()) === $this->questions->count();
     }
 
     public function grade()
     {
         if (! $this->isComplete()) {
-            throw new \Exception('This quiz has not yet been completed!');
+            throw new Exception('This quiz has not yet been completed!');
         }
 
-        return (count($this->correctlyAnsweredQuestions()) / count($this->qustions)) * 100;
-    }
-
-    private function correctlyAnsweredQuestions()
-    {
-        return array_filter($this->qustions, function ($qustions) {
-            return $qustions->isCorrect();
-        });
+        return (count($this->questions->solved()) / $this->questions->count()) * 100;
     }
 }

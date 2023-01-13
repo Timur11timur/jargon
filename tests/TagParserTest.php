@@ -7,25 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class TagParserTest extends TestCase
 {
-//    protected TagParser $parser;
-//
-//    protected function setUp(): void
-//    {
-//        $this->parser = new TagParser();
-//    }
-
-    /**
-     * @dataProvider tagsProvider
-     */
-    public function test_it_parses__tags($expected, $input)
-    {
-        $parser = new TagParser();
-
-        $result = $parser->parse($input);
-
-        $this->assertSame($expected, $result);
-    }
-
     public function tagsProvider(): array
     {
         return [
@@ -38,6 +19,26 @@ class TagParserTest extends TestCase
             [['personal', 'money', 'family'], 'personal ! money ! family'],
         ];
     }
+
+    /**
+     * @test
+     * @dataProvider tagsProvider
+     */
+    public function it_parses_tags($expected, $input)
+    {
+        $parser = new TagParser();
+
+        $result = $parser->parse($input);
+
+        $this->assertSame($expected, $result);
+    }
+
+//    protected TagParser $parser;
+//
+//    protected function setUp(): void
+//    {
+//        $this->parser = new TagParser();
+//    }
 
 //    /** @test */
 //    public function it_parses_a_single_tag()

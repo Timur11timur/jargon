@@ -13,34 +13,34 @@ class Quiz
         $this->questions = new Questions();
     }
 
-    public function addQuestion(Question $question)
+    public function addQuestion(Question $question): void
     {
         $this->questions->add($question);
     }
 
-    public function begin()
+    public function begin(): Question
     {
         return $this->nextQuestion();
     }
 
-    public function nextQuestion()
+    public function nextQuestion(): Question|false
     {
         return $this->questions->next();
     }
 
-    public function questions()
+    public function questions(): Questions
     {
         return $this->questions;
     }
 
-    public function isComplete()
+    public function isComplete(): bool
     {
         return count($this->questions->answered()) === $this->questions->count();
     }
 
-    public function grade()
+    public function grade(): int
     {
-        if (! $this->isComplete()) {
+        if (!$this->isComplete()) {
             throw new Exception('This quiz has not yet been completed!');
         }
 

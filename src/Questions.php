@@ -13,12 +13,12 @@ class Questions implements Countable
         $this->questions = $questions;
     }
 
-    public function add(Question $question)
+    public function add(Question $question): void
     {
         $this->questions[] = $question;
     }
 
-    public function next()
+    public function next(): Question|false
     {
         $question = current($this->questions);
 
@@ -27,21 +27,17 @@ class Questions implements Countable
         return $question;
     }
 
-    public function answered()
+    public function answered(): array
     {
-        return array_filter($this->questions, function ($question) {
-            return $question->answered();
-        });
+        return array_filter($this->questions, fn ($q) => $q->answered());
     }
 
-    public function solved()
+    public function solved(): array
     {
-        return array_filter($this->questions, function ($question) {
-            return $question->solved();
-        });
+        return array_filter($this->questions, fn ($q) => $q->solved());
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->questions);
     }

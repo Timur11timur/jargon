@@ -2,8 +2,8 @@
 
 namespace Tests;
 
-use App\Question;
-use App\Quiz;
+use App\Quiz\Question;
+use App\Quiz\Quiz;
 use PHPUnit\Framework\TestCase;
 
 class QuizTest extends TestCase

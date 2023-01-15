@@ -2,12 +2,12 @@
 
 namespace Tests;
 
-use App\Dummy\Gateway;
+use App\Doubles\Gateway;
 
 class FakeGateway implements Gateway
 {
-    public function create()
+    public function create(): string
     {
-        //
+        return 'receipt-from-fake-gateway';
     }
 }

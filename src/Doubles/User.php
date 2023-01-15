@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Dummy;
+namespace App\Doubles;
 
 class User
 {
